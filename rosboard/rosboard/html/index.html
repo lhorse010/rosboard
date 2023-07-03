@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
     <head>
-      <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
         <link href="css/material-icons.css" media="all" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="js/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="></script>
         <link rel="stylesheet" href="css/material.indigo-blue.min.css" />
         <link rel="stylesheet" href="css/uPlot.min.css">
         <link rel="stylesheet" href="css/leaflet.css">
-        <link href="css/index.css" media="all" rel="stylesheet" type="text/css">
-        
+        <!-- <link href="css/index.css" media="all" rel="stylesheet" type="text/css"> -->
+
         <script type="text/javascript" src="js/json5.min.js"></script>
         <script type="text/javascript" src="js/uPlot.iife.min.js"></script>
         <script type="text/javascript" src="js/jquery.transit.min.js"></script>
@@ -16,44 +16,214 @@
         <script type="text/javascript" src="js/eventemitter2.min.js"></script>
         <script text="text/javascript" src="js/import-helper.js"></script>
         <script type="text/javascript" src="js/material.min.js" defer></script>
-        <script type="text/javascript" src="js/leaflet.js"></script>        
-	      <script type="text/javascript" src="js/gl-matrix.js"></script>
-	      <script type="text/javascript" src="js/litegl.min.js"></script>
+        <script type="text/javascript" src="js/leaflet.js"></script>
+        <script type="text/javascript" src="js/gl-matrix.js"></script>
+        <script type="text/javascript" src="js/litegl.min.js"></script>
         <script type="text/javascript" src="js/index.js" defer></script>
 
-        <title>ROSboard</title>
+        <!-- Bootstrap 5.3 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+        <!-- <title>ROSboard</title> -->
+        <meta charset="UTF-8">
+        <title>智慧湾自动化仓库实时监控平台</title>
+
+        <style>
+            body {
+                background-image: url(bg.gif);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                font-family: monospace;
+            }
+            h1,h2,h3,h4,h5,h6 {
+                margin: 0;
+            }
+            main {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            .h-gradient {
+                background: -webkit-linear-gradient(#CBFCFB, #3DBDFE);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .title-div {
+                position: relative;
+                padding: 5px;
+            }
+            .title-div:before {
+                content: "";
+                position: absolute;
+                border: 2px solid #3DBDFE;
+                top: -4%;
+                bottom: -11%;
+                left: 0%;
+                right: 0%;
+                z-index: -1;
+                -webkit-transform: perspective(50em) rotateX(-30deg);
+                transform: perspective(50em) rotateX(-30deg);
+                box-shadow: inset 0 0 32px rgba(61, 189, 254, 0.6);
+            }
+
+            .logo-heading {
+                height: calc(2rem + .9vw);
+                width: calc(2rem + .9vw);
+            }
+
+            .title {
+                margin: 0.5rem;
+                font-weight: bold;
+            }
+
+            .datetime-div {
+                margin: 0.5rem;
+            }
+            .weather-div {
+                margin: 0.5rem;
+            }
+
+            .primary-border {
+                border: 2px solid #3DBDFE;
+                /* border-radius: 10px; */
+                box-shadow: inset 0 0 24px rgba(61, 189, 254, 0.5);
+            }
+
+            .corner {
+                --b: 5px;   /* thickness of the border */
+                --c: #3DBDFE;   /* color of the border */
+                --w: 20px;  /* width of border */
+
+
+                border: var(--b) solid #0000; /* space for the border */
+                --_g: #0000 90deg,var(--c) 0;
+                --_p: var(--w) var(--w) border-box no-repeat;
+                background:
+                    conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--_g)) 0    0    / var(--_p),
+                    conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g)) 100% 0    / var(--_p),
+                    conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 0    100% / var(--_p),
+                    conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p);
+            }
+
+            .data-div {
+                height: 50vh;
+            }
+            .map-div {
+                height: 50vh;
+                margin: 0 6px 0 6px;
+            }
+
+            .secondary-dataset {
+                height: 35vh;
+            }
+        </style>
     </head>
     <body>
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-          <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-              <!-- Title -->
-              <span class="mdl-layout-title">ROSboard</span>
-              <!-- Add spacer, to align navigation to the right -->
-              <div class="mdl-layout-spacer"></div>
+        <main>
+            <div class="container text-center">
+                <div class="row align-items-center">
+                    <div class="col datetime-div">
+                        <h6 class="h-gradient">2023年6月28日</h6>
+                        <h4 class="h-gradient">00:00:00</h4>
+                    </div>
+                    <div class="col-9 title-div">
+                        <h2 class="title h-gradient"><img class="logo-heading" src="fdu_cst_part.png"> 智慧湾自动化仓库实时监控平台</h2>
+                    </div>
+                    <div class="col weather-div">
+                        <!-- <h4 class="h-gradient">上海 30°C</h4> -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topicModal">
+                            <i class="bi bi-plus-lg" style="font-size: calc(.5rem + .9vw);"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <div class="grid">
+                    </div>
+                </div>
+
+                <!-- <div class="row align-items-start mt-4 primary-dataset">
+                    <div class="col data-div primary-border corner">
+                        <h2>DATA</h2>
+                    </div>
+                    <div class="col-7 map-div primary-border">
+                        <h2>MAP</h2>
+                    </div>
+                    <div class="col data-div primary-border corner">
+                        <h2>DATA</h2>
+                    </div>
+                </div>
+    
+                <div class="row align-items-start mt-4 secondary-dataset primary-border corner">
+                    <h2>LOG, TRACE, METRIC</h2>
+                </div> -->
             </div>
-          </header>
-          <div class="mdl-layout__drawer">
-            <nav id="topics-nav" class="mdl-navigation">
-                <div id="topics-nav-system-title" class="topics-nav-title">System</div>
-                <div id="topics-nav-system"></div>
-                <div id="topics-nav-ros-title" class="topics-nav-title">ROS topics</div>
-                <div id="topics-nav-ros"></div>
-                <div style="opacity:0.3;" id="topics-nav-unsupported"></div>
-            </nav>
-          </div>
-          <main class="mdl-layout__content">
-            <div class="page-content">
-              <div class="grid">
-              </div>
+        </main>
+
+        <!-- Modal for all topics -->
+        <div class="modal fade" id="topicModal" tabindex="-1" aria-labelledby="topicModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="topicModalLabel">添加 topics</h1>
+                    </div>
+                    <div class="modal-body">
+                        <nav id="topics-nav">
+                            <div id="topics-nav-system-title" class="topics-nav-title">System</div>
+                            <div id="topics-nav-system"></div>
+                            <div id="topics-nav-ros-title" class="topics-nav-title">ROS topics</div>
+                            <div id="topics-nav-ros"></div>
+                            <div style="opacity:0.3;" id="topics-nav-unsupported"></div>
+                        </nav>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">完成</button>
+                    </div>
+                </div>
             </div>
-          </main>
         </div>
-        
-  <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-  </div>
+
+        <!-- <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"> -->
+
+            <!-- original: header -->
+            <!-- <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">ROSboard</span>
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </header> -->
+
+            <!-- original: left side drawer -->
+            <!-- <div class="mdl-layout__drawer">
+                <nav id="topics-nav" class="mdl-navigation">
+                    <div id="topics-nav-system-title" class="topics-nav-title">System</div>
+                    <div id="topics-nav-system"></div>
+                    <div id="topics-nav-ros-title" class="topics-nav-title">ROS topics</div>
+                    <div id="topics-nav-ros"></div>
+                    <div style="opacity:0.3;" id="topics-nav-unsupported"></div>
+                </nav>
+            </div> -->
+
+            <!-- original: main grid content -->
+            <!-- <main class="mdl-layout__content">
+                <div class="page-content">
+                    <div class="grid">
+                    </div>
+                </div>
+            </main> -->
+
+        <!-- </div> -->
+
+        <!-- original: toast messages -->
+        <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div> -->
 
     </body>
 </html>
