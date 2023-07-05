@@ -24,7 +24,7 @@ class LogViewer extends Viewer {
             .css({
                 "width": "100%",
                 "padding-bottom": "80%",
-                "background": "#101010",
+                "background": "rgba(0, 0, 0, 0.6)",
                 "position": "relative",
                 "overflow": "hidden",
             })

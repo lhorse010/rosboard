@@ -22,15 +22,18 @@
         <script type="text/javascript" src="js/index.js" defer></script>
 
         <!-- Bootstrap 5.3 -->
+        <link rel="stylesheet" href="bootstrap5.3/css/bootstrap.min.css">
+        <script src="bootstrap5.3/js/bootstrap.bundle.min.js"></script>
+        <!-- <link rel="stylesheet" href="bootstrap5.3/icons/bootstrap-icons.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script> -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-        <!-- <title>ROSboard</title> -->
         <meta charset="UTF-8">
         <title>智慧湾自动化仓库实时监控平台</title>
 
         <style>
+            /* HTML default attributes */
             body {
                 background-image: url(assets/bg.gif);
                 background-repeat: no-repeat;
@@ -38,24 +41,90 @@
                 background-position: center;
                 font-family: monospace;
             }
+
             h1,h2,h3,h4,h5,h6 {
                 margin: 0;
             }
+
             main {
                 height: 100vh;
                 width: 100vw;
             }
 
+            /* Topics card */
+            .mdl-navigation__link {
+                display: block;
+                padding-left: 12pt;
+                margin-left: 0px;
+            }
+            
+            .card {
+                color: #FFF;
+                width: calc(33% - 40pt);
+                border-radius: 0px;
+                text-align: left;
+            }
+
+            .card-title {
+                font-weight: bold;
+                background: -webkit-linear-gradient(#CBFCFB, #3DBDFE);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .card-content {
+                
+            }
+
+            .material-icons {
+                color: #FFF;
+            }
+
+            /* Modal */
+            .modal-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                color: #FFF;
+                pointer-events: auto;
+                /* background-color: rgba(5, 15, 32, 0.8) !important; */
+                /* background-color: var(--bs-modal-bg);
+                background-clip: padding-box;
+                /* border: var(--bs-modal-border-width) solid var(--bs-modal-border-color); */
+                border-radius: 0;
+                outline: 0;
+            }
+
+            .modal-header {
+                border-bottom: 1px solid #3DBDFE !important;
+            }
+
+            .modal-title {
+                margin: 0 auto;
+            }
+
+            .modal-content {
+                background-color: rgba(5, 15, 32, 0.8) !important;
+            }
+
+            .modal-footer {
+                border-top: 1px solid #3DBDFE !important;
+            }
+
+            /* Headers */
             .h-gradient {
                 background: -webkit-linear-gradient(#CBFCFB, #3DBDFE);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
 
+            /* Title */
             .title-div {
                 position: relative;
                 padding: 5px;
             }
+
             .title-div:before {
                 content: "";
                 position: absolute;
@@ -70,23 +139,40 @@
                 box-shadow: inset 0 0 32px rgba(61, 189, 254, 0.6);
             }
 
-            .logo-heading {
-                height: calc(2rem + .9vw);
-                width: calc(2rem + .9vw);
-            }
-
             .title {
                 margin: 0.5rem;
                 font-weight: bold;
             }
+            
+            /* Logo */
+            .logo-heading {
+                height: calc(2rem + .9vw);
+                width: calc(2rem + .9vw);
+            }  
 
+            /* Containers */
             .datetime-div {
                 margin: 0.5rem;
             }
+
             .weather-div {
                 margin: 0.5rem;
             }
 
+            .data-div {
+                height: 50vh;
+            }
+
+            .map-div {
+                height: 50vh;
+                margin: 0 6px 0 6px;
+            }
+
+            .secondary-dataset {
+                height: 35vh;
+            }
+
+            /* Border design */
             .primary-border {
                 border: 2px solid #3DBDFE;
                 /* border-radius: 10px; */
@@ -109,18 +195,7 @@
                     conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p);
             }
 
-            .data-div {
-                height: 50vh;
-            }
-            .map-div {
-                height: 50vh;
-                margin: 0 6px 0 6px;
-            }
-
-            .secondary-dataset {
-                height: 35vh;
-            }
-
+            /* Button design */
             .btn-add {
                 color: #FFF;
                 border: 1px solid #3DBDFE;
@@ -129,6 +204,18 @@
             }
 
             .btn-add:hover {
+                color: #FFF;
+                border: 1px solid #3DBDFE;
+                box-shadow: inset 0 0 32px rgba(61, 189, 254, 0.8);
+            }
+
+            .btn-done {
+                color: #FFF;
+                border: 1px solid #3DBDFE;
+                box-shadow: inset 0 0 24px rgba(61, 189, 254, 0.5);
+            }
+
+            .btn-done:hover {
                 color: #FFF;
                 border: 1px solid #3DBDFE;
                 box-shadow: inset 0 0 32px rgba(61, 189, 254, 0.8);
@@ -183,9 +270,9 @@
         <!-- Modal for all topics -->
         <div class="modal fade" id="topicModal" tabindex="-1" aria-labelledby="topicModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content primary-border corner">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="topicModalLabel">添加 topics</h1>
+                        <h1 class="modal-title fs-4 fw-bold h-gradient" id="topicModalLabel">添加 topics</h1>
                     </div>
                     <div class="modal-body">
                         <nav id="topics-nav">
@@ -197,8 +284,7 @@
                         </nav>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary">完成</button>
+                        <button type="button" class="btn btn-done" style="margin: 0 auto;" data-bs-dismiss="modal">完成</button>
                     </div>
                 </div>
             </div>
@@ -248,7 +334,7 @@
                 var year = new Date().getFullYear();
                 var month = new Date().getMonth() + 1; // range 1-12
                 var day = new Date().getDate();
-                var time = new Date().toLocaleTimeString();
+                var time = new Date().toLocaleTimeString("zh-CN", {hour12: false});
                 const newTime = time.replace("AM", "").replace("PM", ""); // remove AM and PM
 
                 document.getElementById("year").textContent = year

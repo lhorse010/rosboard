@@ -74,7 +74,7 @@ function updateStoredSubscriptions() {
 
 function newCard() {
   // creates a new card, adds it to the grid, and returns it.
-  let card = $("<div></div>").addClass('card')
+  let card = $("<div></div>").addClass('card primary-border corner')
     .appendTo($('.grid'));
   return card;
 }

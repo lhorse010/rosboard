@@ -218,8 +218,15 @@ input, textarea, *[contenteditable=true] {
 }
 
 .mdl-data-table {
-    color:#c0c0c0;
-    background:#404040;
+  /* color:#c0c0c0;
+  background:#404040; */
+  color: #3DBDFE;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+tr:hover {
+  color: #3DBDFE !important;
+  background: rgba(61, 189, 254, 0.5) !important;
 }
 
 .mdl-navigation, .mdl-layout__drawer {
@@ -319,14 +326,17 @@ input, textarea, *[contenteditable=true] {
 }
 
 .topics-nav-title {
-  text-transform:uppercase;
-  color:#808080;
-  font-size:10pt;
-  font-weight:700;
-  padding-left:10pt;
-  border-bottom:1px dotted #505050;
-  padding-top:10pt;
-  padding-bottom:10pt;
+  text-transform: uppercase;
+  /* color: #808080; */
+  background: -webkit-linear-gradient(#CBFCFB, #3DBDFE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 10pt;
+  font-weight: bold;
+  padding-left: 10pt;
+  /* border-bottom: 1px dotted #505050; */
+  padding-top: 10pt;
+  padding-bottom: 10pt;
 }
 
 /* width */
